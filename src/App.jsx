@@ -6,17 +6,55 @@ import Recap from "./pages/Recap";
 import AddTransaction from "./pages/AddTransaction";
 import Category from "./pages/Category";
 import Profile from "./pages/Profile";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      {/* Public routes */}
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/recap" element={<Recap />} />
-      <Route path="/add" element={<AddTransaction />} />
-      <Route path="/category" element={<Category />} />
-      <Route path="/profile" element={<Profile />} />
+      {/* Protected routes */}
+      <Route
+        path="/"
+        element={
+          <PrivateRoute>
+            <Home />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/recap"
+        element={
+          <PrivateRoute>
+            <Recap />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/add"
+        element={
+          <PrivateRoute>
+            <AddTransaction />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/category"
+        element={
+          <PrivateRoute>
+            <Category />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        }
+      />
     </Routes>
   );
 }
