@@ -35,10 +35,7 @@ function Login() {
         {/* Logo */}
         <div className="flex flex-col items-center mb-8">
           <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-3">
-            <img
-              src="/public/PantauBelanja_Logo.svg"
-              alt="Logo PantauBelanja"
-            />
+            <img src="/PantauBelanja_Logo.svg" alt="Logo PantauBelanja" />
           </div>
           <h1 className="text-xl font-bold text-[#1A5C45]">PantauBelanja</h1>
           <p className="text-sm text-gray-700 mt-1">
@@ -55,12 +52,17 @@ function Login() {
 
         {/* Email */}
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray mb-1.5">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700 mb-1.5"
+          >
             Email
           </label>
           <div className="flex items-center border border-gray-500 rounded-xl px-3 py-3 bg-gray-50 focus-within:border-[#1A5C45]">
             <input
+              id="email"
               type="email"
+              autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="masukan email anda"
@@ -71,12 +73,17 @@ function Login() {
 
         {/* Password */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray mb-1.5">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700 mb-1.5"
+          >
             Password
           </label>
           <div className="flex items-center border border-gray-500 rounded-xl px-3 py-3 bg-gray-50 focus-within:border-[#1A5C45]">
             <input
+              id="password"
               type={showPassword ? "text" : "password"}
+              autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="masukan kata sandi"
@@ -87,7 +94,7 @@ function Login() {
               className="ml-2 text-gray-400"
             >
               <i
-                className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash"} text-sm`}
+                className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"} text-sm`}
               />
             </button>
           </div>

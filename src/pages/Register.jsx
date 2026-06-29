@@ -141,11 +141,16 @@ function Register() {
 
         {/* Nama */}
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray mb-1.5">
-            Nama Panggilan
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-700 mb-1.5"
+          >
+            Nama
           </label>
           <input
+            id="name"
             type="text"
+            autoComplete="name"
             value={nama}
             onChange={(e) => setNama(e.target.value)}
             placeholder="Masukkan nama anda"
@@ -155,11 +160,16 @@ function Register() {
 
         {/* Email */}
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray mb-1.5">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700 mb-1.5"
+          >
             Email
           </label>
           <input
+            id="email"
             type="email"
+            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="masukan email anda"
@@ -169,11 +179,16 @@ function Register() {
 
         {/* Kata Sandi */}
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray mb-1.5">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700 mb-1.5"
+          >
             Kata Sandi
           </label>
           <div className="flex items-center border border-gray-500 rounded-xl px-3 py-3 bg-gray-50 focus-within:border-[#1A5C45]">
             <input
+              id="password"
+              autoComplete="new-password"
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -185,7 +200,7 @@ function Register() {
               className="ml-2 text-gray-400"
             >
               <i
-                className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash"} text-sm`}
+                className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"} text-sm`}
               />
             </button>
           </div>
@@ -203,11 +218,16 @@ function Register() {
 
         {/* Konfirmasi */}
         <div className="mb-5">
-          <label className="block text-sm font-medium text-gray mb-1.5">
+          <label
+            htmlFor="password-confirm"
+            className="block text-sm font-medium text-gray-700 mb-1.5"
+          >
             Konfirmasi Kata Sandi
           </label>
           <div className="flex items-center border border-gray-500 rounded-xl px-3 py-3 bg-gray-50 focus-within:border-[#1A5C45]">
             <input
+              id="password-confirm"
+              autoComplete="new-confirm"
               type={showConfirm ? "text" : "password"}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
@@ -219,7 +239,7 @@ function Register() {
               className="ml-2 text-gray-400"
             >
               <i
-                className={`fa ${showConfirm ? "fa-eye" : "fa-eye-slash"} text-sm`}
+                className={`fa ${showConfirm ? "fa-eye-slash" : "fa-eye"} text-sm`}
               />
             </button>
           </div>
