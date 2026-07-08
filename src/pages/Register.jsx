@@ -2,16 +2,41 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 
-const DEFAULT_CATEGORIES = [
-  { name: "Gaji", type: "income" },
-  { name: "Pemasukan Lain", type: "income" },
-  { name: "Belanja Dapur", type: "expense" },
-  { name: "Makan & Minum", type: "expense" },
-  { name: "Transport", type: "expense" },
-  { name: "Listrik & Air", type: "expense" },
-  { name: "Kesehatan", type: "expense" },
-  { name: "Pendidikan", type: "expense" },
-  { name: "Lainnya", type: "expense" },
+// ─── Taksonomi kategori (3 grup pengeluaran + flat pemasukan) ────────────────
+const EXPENSE_GROUPS = [
+  {
+    groupName: "Kebutuhan Dapur",
+    children: [
+      "Sembako",
+      "Lauk Pauk",
+      "Gas LPG",
+      "Air Mineral",
+      "Dapur Lainnya",
+    ],
+  },
+  {
+    groupName: "Tagihan",
+    children: [
+      "Sewa/Kontrakan",
+      "Listrik",
+      "Air",
+      "Pulsa & Internet",
+      "Cicilan",
+      "Tagihan Lainnya",
+    ],
+  },
+  {
+    groupName: "Lainnya",
+    children: ["Pendidikan Anak", "Kesehatan", "Hiburan", "Jajan", "Lain-lain"],
+  },
+];
+
+const INCOME_CATEGORIES = [
+  "Gaji/Upah",
+  "Usaha/Dagang",
+  "Bonus",
+  "Transfer Keluarga",
+  "Lain-lain",
 ];
 
 function getPasswordStrength(password) {
@@ -54,13 +79,61 @@ function getPasswordStrength(password) {
 }
 
 async function seedCategories(userId) {
-  const rows = DEFAULT_CATEGORIES.map((cat) => ({
-    ...cat,
+  // Tahap 1: insert 3 header grup pengeluaran, ambil id hasil insert
+  const headerRows = EXPENSE_GROUPS.map((g) => ({
     user_id: userId,
+    name: g.groupName,
+    type: "pengeluaran",
     parent_id: null,
   }));
-  const { error } = await supabase.from("categories").insert(rows);
-  if (error) console.error("Seed gagal:", error.message);
+
+  const { data: headers, error: headerError } = await supabase
+    .from("categories")
+    .insert(headerRows)
+    .select("id, name");
+
+  if (headerError) {
+    console.error("Seed gagal (header grup):", headerError.message);
+    return;
+  }
+
+  // Tahap 2: susun child categories, nunjuk ke parent_id sesuai nama grup
+  const childRows = [];
+
+  for (const group of EXPENSE_GROUPS) {
+    const header = headers.find((h) => h.name === group.groupName);
+    if (!header) {
+      console.error(
+        `Header grup "${group.groupName}" tidak ditemukan setelah insert.`,
+      );
+      continue;
+    }
+    for (const childName of group.children) {
+      childRows.push({
+        user_id: userId,
+        name: childName,
+        type: "pengeluaran",
+        parent_id: header.id,
+      });
+    }
+  }
+
+  // Kategori pemasukan — flat, tanpa header
+  for (const name of INCOME_CATEGORIES) {
+    childRows.push({
+      user_id: userId,
+      name,
+      type: "pemasukan",
+      parent_id: null,
+    });
+  }
+
+  const { error: childError } = await supabase
+    .from("categories")
+    .insert(childRows);
+  if (childError) {
+    console.error("Seed gagal (kategori):", childError.message);
+  }
 }
 
 function Register() {
