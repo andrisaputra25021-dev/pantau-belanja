@@ -1,7 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
-import { data } from "react-router-dom";
-import { REALTIME_SUBSCRIBE_STATES } from "@supabase/supabase-js";
 
 const AuthContext = createContext(null);
 
