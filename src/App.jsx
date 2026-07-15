@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Recap from "./pages/Recap";
 import AddTransaction from "./pages/AddTransaction";
 import Category from "./pages/Category";
+import CategoryDetail from "./pages/CategoryDetail";
 import Profile from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
 
@@ -47,6 +48,15 @@ function App() {
           </PrivateRoute>
         }
       />
+      <Route
+        path="/category/:id"
+        element={
+          <PrivateRoute>
+            <CategoryDetail />
+          </PrivateRoute>
+        }
+      />
+
       <Route
         path="/profile"
         element={

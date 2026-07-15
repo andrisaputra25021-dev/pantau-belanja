@@ -320,7 +320,7 @@ function Recap() {
                 return (
                   <button
                     key={cat.id}
-                    onClick={() => navigate(`/kategori/${cat.id}`)}
+                    onClick={() => navigate(`/category/${cat.id}`)}
                     className={`w-full flex items-center gap-3 px-4 py-3.5 text-left ${
                       idx !== expenseByCategory.length - 1
                         ? "border-b border-gray-50"
@@ -373,7 +373,7 @@ function Recap() {
                 return (
                   <button
                     key={cat.id}
-                    onClick={() => navigate(`/kategori/${cat.id}`)}
+                    onClick={() => navigate(`/category/${cat.id}`)}
                     className={`w-full flex items-center gap-3 px-4 py-3.5 text-left ${
                       idx !== incomeByCategory.length - 1
                         ? "border-b border-gray-50"
