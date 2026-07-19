@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../lib/supabaseClient";
+import BottomNav from "../components/BottomNav";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -66,9 +67,13 @@ function Profile() {
           {displayName && (
             <p className="text-lg font-bold text-gray-800">{displayName}</p>
           )}
-          <p className="text-sm text-gray-500">{user?.email}</p>
+          <p className="text-sm text-gray-400">{user?.email}</p>
         </div>
 
+        {/* ── Section: Lainnya ── */}
+        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-1">
+          Lainnya
+        </p>
         <div className="bg-white rounded-2xl shadow-sm overflow-hidden mb-5">
           <button
             onClick={handleLogout}
@@ -83,10 +88,12 @@ function Profile() {
         </div>
 
         {/* ── App version ── */}
-        <p className="text-center text-xs text-gray-500 mt-6">
+        <p className="text-center text-xs text-gray-300 mt-6">
           PantauBelanja v1.0.0
         </p>
       </div>
+
+      <BottomNav />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
+import BottomNav from "../components/BottomNav";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -133,7 +134,7 @@ function CategoryDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-8">
+    <div className="min-h-screen bg-gray-50 pb-24">
       {/* ── Top bar ── */}
       <div className="bg-white px-4 pt-10 pb-4 flex items-center gap-3 border-b border-gray-100">
         <button
@@ -278,6 +279,8 @@ function CategoryDetail() {
           </>
         )}
       </div>
+
+      <BottomNav />
 
       {/* ── Modal konfirmasi hapus ── */}
       {deleteTarget && (
