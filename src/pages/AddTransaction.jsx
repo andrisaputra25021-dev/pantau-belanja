@@ -243,13 +243,13 @@ function AddTransaction() {
           <label className="text-sm text-gray-700 block mb-2">
             Catatan (opsional)
           </label>
-          <input
-            type="text"
+          <textarea
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder="Tambah catatan..."
-            className="w-full text-sm text-gray-800 bg-transparent outline-none placeholder-gray-400"
-          />
+            rows={3}
+            className="w-full text-sm text-gray-800 bg-transparent outline-none placeholder-gray-400 resize-none"
+          />{" "}
         </div>
 
         {/* ── Tombol Simpan ── */}

@@ -46,6 +46,7 @@ function CategoryDetail() {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [expandedId, setExpandedId] = useState(null);
 
   const [deleteTarget, setDeleteTarget] = useState(null); // tx yang mau dihapus
   const [deleting, setDeleting] = useState(false);
@@ -240,40 +241,53 @@ function CategoryDetail() {
             {/* ── Flat list transaksi ── */}
             {!loading && transactions.length > 0 && (
               <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-                {transactions.map((tx, idx) => (
-                  <div
-                    key={tx.id}
-                    className={`flex items-center gap-3 px-4 py-3 ${
-                      idx !== transactions.length - 1
-                        ? "border-b border-gray-50"
-                        : ""
-                    }`}
-                  >
-                    <span className="text-xs text-gray-400 w-12 flex-shrink-0">
-                      {formatShortDate(tx.transaction_date)}
-                    </span>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-gray-800 truncate">
-                        {tx.note || "-"}
-                      </p>
+                {transactions.map((tx, idx) => {
+                  const isExpanded = expandedId === tx.id;
+                  return (
+                    <div
+                      key={tx.id}
+                      className={
+                        idx !== transactions.length - 1
+                          ? "border-b border-gray-50"
+                          : ""
+                      }
+                    >
+                      <div
+                        onClick={() => setExpandedId(isExpanded ? null : tx.id)}
+                        className="flex items-center gap-3 px-4 py-3 cursor-pointer"
+                      >
+                        <span className="text-xs text-gray-400 w-12 flex-shrink-0">
+                          {formatShortDate(tx.transaction_date)}
+                        </span>
+                        <div className="flex-1 min-w-0">
+                          <p
+                            className={`text-sm text-gray-800 ${isExpanded ? "" : "truncate"}`}
+                          >
+                            {tx.note || "-"}
+                          </p>
+                        </div>
+                        <span
+                          className={`text-sm font-semibold flex-shrink-0 ${
+                            isPengeluaran ? "text-red-500" : "text-[#1A5C45]"
+                          }`}
+                        >
+                          {isPengeluaran ? "-" : "+"}
+                          {formatRupiah(tx.amount)}
+                        </span>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setDeleteTarget(tx);
+                          }}
+                          className="text-gray-300 active:text-red-400 flex-shrink-0 pl-1"
+                          aria-label="Hapus transaksi"
+                        >
+                          <i className="fa fa-trash text-sm" />
+                        </button>
+                      </div>
                     </div>
-                    <span
-                      className={`text-sm font-semibold flex-shrink-0 ${
-                        isPengeluaran ? "text-red-500" : "text-[#1A5C45]"
-                      }`}
-                    >
-                      {isPengeluaran ? "-" : "+"}
-                      {formatRupiah(tx.amount)}
-                    </span>
-                    <button
-                      onClick={() => setDeleteTarget(tx)}
-                      className="text-gray-300 active:text-red-400 flex-shrink-0 pl-1"
-                      aria-label="Hapus transaksi"
-                    >
-                      <i className="fa fa-trash text-sm" />
-                    </button>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </>
