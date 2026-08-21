@@ -1,16 +1,59 @@
-# React + Vite
+# PantauBelanja
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplikasi pencatat pengeluaran harian berbasis web, dirancang mobile-first untuk pengguna non-tech-savvy. Membantu mencatat pemasukan/pengeluaran, mengelompokkan transaksi per kategori, dan melihat rekap bulanan tanpa proses yang rumit.
 
-Currently, two official plugins are available:
+🔗 Live demo: [pantau-belanja.vercel.app](https://pantau-belanja.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Fitur
 
-## React Compiler
+- Autentikasi pengguna (register/login)
+- Catat transaksi pemasukan dan pengeluaran
+- Kategori transaksi otomatis
+- Rekap bulanan per kategori
+- Desain responsif, dioptimalkan untuk mobile (375px)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+- **Frontend:** React + Vite
+- **Styling:** Tailwind CSS
+- **Routing:** React Router
+- **Backend & Database:** Supabase (PostgreSQL, Auth, Row Level Security)
+- **Deployment:** Vercel
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Menjalankan Secara Lokal
+
+Clone repository ini:
+
+```bash
+git clone https://github.com/andrisaputra25021-dev/pantau-belanja.git
+cd pantau-belanja
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Buat file `.env` di root project, isi dengan kredensial Supabase milikmu sendiri:
+
+```
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
+```
+
+Jalankan development server:
+
+```bash
+npm run dev
+```
+
+Aplikasi akan berjalan di `http://localhost:5173`.
+
+## Catatan Pengembangan
+
+Dibangun dengan pendekatan MVP — fitur diprioritaskan berdasarkan kebutuhan inti pengguna, dengan beberapa fitur (seperti notifikasi budget limit dan export laporan) sengaja ditunda untuk versi berikutnya.
+
+## Author
+
+Andri Saputra
